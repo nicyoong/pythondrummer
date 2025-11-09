@@ -25,4 +25,12 @@ class DrumMachine:
             pattern.append(step)
         return pattern
 
+    def play_pattern(self, pattern):
+        """Play the given pattern once."""
+        for step in pattern:
+            for drum, play in step.items():
+                if play:
+                    self.samples[drum].play()
+            time.sleep(self.beat_duration / 4)  # 16th notes
+
 
