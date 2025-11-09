@@ -33,4 +33,15 @@ class DrumMachine:
                     self.samples[drum].play()
             time.sleep(self.beat_duration / 4)  # 16th notes
 
+    def loop(self):
+        """Keep generating and playing patterns indefinitely."""
+        pattern = self.make_pattern()
+        print("Playing beat — press Ctrl+C to stop")
 
+        try:
+            while True:
+                self.play_pattern(pattern)
+                if random.random() < 0.2:  # mutate occasionally
+                    pattern = self.make_pattern()
+        except KeyboardInterrupt:
+            print("\nStopped.")
