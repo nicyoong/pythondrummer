@@ -13,4 +13,16 @@ class DrumMachine:
         self.samples["snare"] = sa.WaveObject.from_wave_file(snare_path)
         self.samples["hihat"] = sa.WaveObject.from_wave_file(hihat_path)
 
+    def make_pattern(self):
+        """Generate a 16-step random drum pattern."""
+        pattern = []
+        for i in range(16):
+            step = {
+                "kick": random.random() < 0.3,
+                "snare": (i % 8 == 4) or random.random() < 0.1,
+                "hihat": random.random() < 0.7
+            }
+            pattern.append(step)
+        return pattern
+
 
