@@ -1,6 +1,8 @@
 import time
 import random
-import simpleaudio as sa
+import pygame
+
+pygame.mixer.init()
 
 class DrumMachine:
     def __init__(self, bpm=100):
@@ -9,9 +11,9 @@ class DrumMachine:
         self.samples = {}
 
     def load_samples(self, kick_path, snare_path, hihat_path):
-        self.samples["kick"] = sa.WaveObject.from_wave_file(kick_path)
-        self.samples["snare"] = sa.WaveObject.from_wave_file(snare_path)
-        self.samples["hihat"] = sa.WaveObject.from_wave_file(hihat_path)
+        self.samples["kick"] = pygame.mixer.Sound(kick_path)
+        self.samples["snare"] = pygame.mixer.Sound(snare_path)
+        self.samples["hihat"] = pygame.mixer.Sound(hihat_path)
 
     def make_pattern(self):
         """Generate a 16-step random drum pattern."""
