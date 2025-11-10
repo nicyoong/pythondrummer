@@ -55,10 +55,7 @@ class DrumMachine:
                 "hihat": random.random() < 0.7,
                 "crash": (i == 0),
             }
-            # --- enforce playability ---
-            # no more than 3 simultaneous hits (2 hands + 1 foot)
             if sum(step.values()) > 3:
-                # randomly remove one hand sound (not kick)
                 candidates = [k for k in step if k != "kick" and step[k]]
                 if candidates:
                     mute = random.choice(candidates)
