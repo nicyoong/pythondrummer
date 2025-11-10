@@ -44,7 +44,7 @@ class DrumMachine:
 
     def make_pattern(self):
         beats, note_value = self.time_signature
-        steps_per_beat = 4  # 16th-note resolution
+        steps_per_beat = 4
         steps_per_bar = beats * steps_per_beat
         snare_div = 8 if beats == 4 else 12
         pattern = []
