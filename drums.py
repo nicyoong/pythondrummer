@@ -78,15 +78,19 @@ class DrumMachine:
             time.sleep(self.beat_duration / 4)
             self.draw_status()
 
-    def loop(self):
+    def loop(self, phrase_length=4):
         pattern = self.make_pattern()
         print(
-            "Playing beat, press SPACE to pause/resume, close window or Ctrl+C to quit"
+            f"Playing beat ({phrase_length}-bar phrases), press SPACE to pause/resume, close window or Ctrl+C to quit"
         )
         try:
+            bars_played = 0
             while True:
-                self.play_pattern(pattern)
-                if random.random() < 0.2:
+                self.play_pattern(pattern)  # assume this plays 1 bar
+                bars_played += 1
+
+                # If we've reached the phrase length, make a new pattern
+                if bars_played % phrase_length == 0 and random.random() < 0.5:
                     pattern = self.make_pattern()
         except KeyboardInterrupt:
             print("\nStopped.")
