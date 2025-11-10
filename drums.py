@@ -8,9 +8,10 @@ pygame.init()
 
 
 class DrumMachine:
-    def __init__(self, bpm=100, time_signature=(4, 4)):
+    def __init__(self, bpm=100, time_signature=(4, 4), swing=0.0):
         self.bpm = bpm
         self.time_signature = time_signature  # e.g., (3, 4) or (4, 4)
+        self.swing = swing
         self.beat_duration = 60 / bpm
         self.samples = {}
         self.playing = True
@@ -77,7 +78,7 @@ class DrumMachine:
 
     def play_pattern(self, pattern):
         """Play pattern once."""
-        for step in pattern:
+        for i, step in enumerate(pattern):
             self.handle_events()
             while not self.playing:
                 self.handle_events()
@@ -85,7 +86,11 @@ class DrumMachine:
             for drum, play in step.items():
                 if play:
                     self.samples[drum].play()
-            time.sleep(self.beat_duration / 4)
+            if i % 2 == 0:
+                delay = (self.beat_duration / 4) * (1 - self.swing)
+            else:
+                delay = (self.beat_duration / 4) * (1 + self.swing)
+            time.sleep(delay)
             self.draw_status()
 
     def loop(self, phrase_length=4):
