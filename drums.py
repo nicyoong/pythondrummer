@@ -104,9 +104,10 @@ class DrumMachine:
 
     def loop(self, phrase_length=4):
         pattern = self.make_pattern()
-        print(
-            f"Playing beat ({phrase_length}-bar phrases), press SPACE to pause/resume, close window or Ctrl+C to quit"
-        )
+        print(f"Playing beat ({phrase_length}-bar phrases)")
+        print(f"press SPACE to pause/resume")
+        print(f"press S to toggle swing")
+        print(f"close window or Ctrl+C to quit")
         try:
             bars_played = 0
             while True:
