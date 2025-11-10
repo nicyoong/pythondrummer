@@ -1,5 +1,6 @@
 import json
 import time
+import math
 import pygame
 import random
 
@@ -22,18 +23,16 @@ class DrumMachine:
 
     def draw_status(self):
         """Draws play/pause status and basic visuals."""
-        self.screen.fill((20, 20, 20))  # dark background
+        self.screen.fill((20, 20, 20))
         font = pygame.font.SysFont("Verdana", 36, bold=True)
-
-        # Choose icon and color
         if self.playing:
-            text = font.render("PLAYING", True, (0, 255, 0))
+            glow = 100 + int(155 * abs(math.sin(time.time() * 4)))  # pulse between 100–255
+            color = (0, glow, 0)
+            text = font.render("PLAYING", True, color)
         else:
             text = font.render("PAUSED", True, (255, 255, 0))
-
         rect = text.get_rect(center=(150, 50))
         self.screen.blit(text, rect)
-
         pygame.display.flip()
 
     def load_samples(self, config_path):
