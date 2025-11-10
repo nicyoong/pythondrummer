@@ -19,7 +19,18 @@ if __name__ == "__main__":
         default=4,
         help="Bars per phrase (default: 4)",
     )
+    parser.add_argument(
+        "--time",
+        type=str,
+        default="4/4",
+        help="Time signature (default: 4/4, e.g. 3/4)"
+    )
     args = parser.parse_args()
-    dm = DrumMachine(bpm=args.bpm)
+    try:
+        beats, note_value = map(int, args.time.split("/"))
+    except ValueError:
+        raise ValueError("Invalid time signature format. Use e.g. 3/4 or 4/4")
+    args = parser.parse_args()
+    dm = DrumMachine(bpm=args.bpm, time_signature=(beats, note_value))
     dm.load_samples(args.config)
     dm.loop(args.bars)

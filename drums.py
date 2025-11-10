@@ -8,8 +8,9 @@ pygame.init()
 
 
 class DrumMachine:
-    def __init__(self, bpm=100):
+    def __init__(self, bpm=100, time_signature=(4, 4)):
         self.bpm = bpm
+        self.time_signature = time_signature  # e.g., (3, 4) or (4, 4)
         self.beat_duration = 60 / bpm
         self.samples = {}
         self.playing = True
@@ -42,8 +43,11 @@ class DrumMachine:
         self.samples["crash"] = pygame.mixer.Sound(config["crash"])
 
     def make_pattern(self):
+        beats, note_value = self.time_signature
+        steps_per_beat = 4  # 16th-note resolution
+        steps_per_bar = beats * steps_per_beat
         pattern = []
-        for i in range(16):
+        for i in range(steps_per_bar):
             step = {
                 "kick": random.random() < 0.3,
                 "snare": (i % 8 == 4) or random.random() < 0.1,
