@@ -4,12 +4,16 @@ import pygame
 import random
 
 pygame.mixer.init()
+pygame.init()
 
 class DrumMachine:
     def __init__(self, bpm=100):
         self.bpm = bpm
         self.beat_duration = 60 / bpm
         self.samples = {}
+        self.playing = True
+        self.screen = pygame.display.set_mode((300, 100))
+        pygame.display.set_caption("Drums. press SPACE to pause/resume")
 
     def load_samples(self, config_path):
         with open(config_path, "r") as f:
@@ -20,7 +24,6 @@ class DrumMachine:
         self.samples["crash"] = pygame.mixer.Sound(config["crash"])
 
     def make_pattern(self):
-        """Generate a 16-step random drum pattern."""
         pattern = []
         for i in range(16):
             step = {
@@ -32,23 +35,42 @@ class DrumMachine:
             pattern.append(step)
         return pattern
 
+    def handle_events(self):
+        """Handle key and quit events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                raise SystemExit
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.playing = not self.playing
+                    print("▶️  Resumed" if self.playing else "⏸️  Paused")
+
     def play_pattern(self, pattern):
-        """Play the given pattern once."""
+        """Play pattern once."""
         for step in pattern:
+            self.handle_events()
+
+            while not self.playing:
+                self.handle_events()
+                time.sleep(0.05)
+
+            # Play sounds
             for drum, play in step.items():
                 if play:
                     self.samples[drum].play()
-            time.sleep(self.beat_duration / 4)  # 16th notes
+
+            time.sleep(self.beat_duration / 4)
 
     def loop(self):
-        """Keep generating and playing patterns indefinitely."""
         pattern = self.make_pattern()
-        print("Playing beat — press Ctrl+C to stop")
+        print("Playing beat, press SPACE to pause/resume, close window or Ctrl+C to quit")
 
         try:
             while True:
                 self.play_pattern(pattern)
-                if random.random() < 0.2:  # mutate occasionally
+                if random.random() < 0.2:
                     pattern = self.make_pattern()
         except KeyboardInterrupt:
             print("\nStopped.")
+            pygame.quit()
