@@ -14,7 +14,24 @@ class DrumMachine:
         self.samples = {}
         self.playing = True
         self.screen = pygame.display.set_mode((300, 100))
-        pygame.display.set_caption("Drums. press SPACE to pause/resume")
+        pygame.display.set_caption("Drum Machine")
+        self.draw_status()
+
+    def draw_status(self):
+        """Draws play/pause status and basic visuals."""
+        self.screen.fill((20, 20, 20))  # dark background
+        font = pygame.font.SysFont("Verdana", 36, bold=True)
+
+        # Choose icon and color
+        if self.playing:
+            text = font.render("PLAYING", True, (0, 255, 0))
+        else:
+            text = font.render("PAUSED", True, (255, 255, 0))
+
+        rect = text.get_rect(center=(150, 50))
+        self.screen.blit(text, rect)
+
+        pygame.display.flip()
 
     def load_samples(self, config_path):
         with open(config_path, "r") as f:
@@ -46,6 +63,7 @@ class DrumMachine:
                 if event.key == pygame.K_SPACE:
                     self.playing = not self.playing
                     print("▶️  Resumed" if self.playing else "⏸️  Paused")
+                    self.draw_status()
 
     def play_pattern(self, pattern):
         """Play pattern once."""
@@ -58,6 +76,7 @@ class DrumMachine:
                 if play:
                     self.samples[drum].play()
             time.sleep(self.beat_duration / 4)
+            self.draw_status()
 
     def loop(self):
         pattern = self.make_pattern()
