@@ -15,7 +15,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--bars",
-        type=str,
+        type=int,
         default=4,
         help="Bars per phrase (default: 4)",
     )
