@@ -13,7 +13,13 @@ if __name__ == "__main__":
         default="config.json",
         help="Sample config file (default: config.json)",
     )
+    parser.add_argument(
+        "--bars",
+        type=str,
+        default=4,
+        help="Bars per phrase (default: 4)",
+    )
     args = parser.parse_args()
     dm = DrumMachine(bpm=args.bpm)
     dm.load_samples(args.config)
-    dm.loop(4)
+    dm.loop(args.bars)
