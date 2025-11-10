@@ -46,11 +46,12 @@ class DrumMachine:
         beats, note_value = self.time_signature
         steps_per_beat = 4  # 16th-note resolution
         steps_per_bar = beats * steps_per_beat
+        snare_div = 8 if beats == 4 else 12
         pattern = []
         for i in range(steps_per_bar):
             step = {
                 "kick": random.random() < 0.3,
-                "snare": (i % 8 == 4) or random.random() < 0.1,
+                "snare": (i % snare_div == 4) or random.random() < 0.1,
                 "hihat": random.random() < 0.7,
                 "crash": (i == 0),
             }
