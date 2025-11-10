@@ -27,7 +27,7 @@ class DrumMachine:
                 "kick": random.random() < 0.3,
                 "snare": (i % 8 == 4) or random.random() < 0.1,
                 "hihat": random.random() < 0.7,
-                "crash": (i == 0) or (random.random() < 0.05)
+                "crash": (i == 0)
             }
             pattern.append(step)
         return pattern
