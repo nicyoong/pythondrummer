@@ -90,7 +90,8 @@ class DrumMachine:
                 bars_played += 1
 
                 # If we've reached the phrase length, make a new pattern
-                if bars_played % phrase_length == 0 and random.random() < 0.5:
+                # if bars_played % phrase_length == 0 and random.random() < 0.5:
+                if bars_played % phrase_length == 0:
                     pattern = self.make_pattern()
         except KeyboardInterrupt:
             print("\nStopped.")
