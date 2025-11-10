@@ -16,4 +16,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     dm = DrumMachine(bpm=args.bpm)
     dm.load_samples(args.config)
-    dm.loop()
+    dm.loop(4)
