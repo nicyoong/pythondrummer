@@ -6,6 +6,7 @@ import random
 pygame.mixer.init()
 pygame.init()
 
+
 class DrumMachine:
     def __init__(self, bpm=100):
         self.bpm = bpm
@@ -30,7 +31,7 @@ class DrumMachine:
                 "kick": random.random() < 0.3,
                 "snare": (i % 8 == 4) or random.random() < 0.1,
                 "hihat": random.random() < 0.7,
-                "crash": (i == 0)
+                "crash": (i == 0),
             }
             pattern.append(step)
         return pattern
@@ -50,22 +51,19 @@ class DrumMachine:
         """Play pattern once."""
         for step in pattern:
             self.handle_events()
-
             while not self.playing:
                 self.handle_events()
                 time.sleep(0.05)
-
-            # Play sounds
             for drum, play in step.items():
                 if play:
                     self.samples[drum].play()
-
             time.sleep(self.beat_duration / 4)
 
     def loop(self):
         pattern = self.make_pattern()
-        print("Playing beat, press SPACE to pause/resume, close window or Ctrl+C to quit")
-
+        print(
+            "Playing beat, press SPACE to pause/resume, close window or Ctrl+C to quit"
+        )
         try:
             while True:
                 self.play_pattern(pattern)
