@@ -12,6 +12,7 @@ class DrumMachine:
         self.bpm = bpm
         self.time_signature = time_signature  # e.g., (3, 4) or (4, 4)
         self.swing = swing
+        self.swing_enabled = swing > 0.0
         self.beat_duration = 60 / bpm
         self.samples = {}
         self.playing = True
@@ -75,6 +76,11 @@ class DrumMachine:
                     self.playing = not self.playing
                     print("▶️  Resumed" if self.playing else "⏸️  Paused")
                     self.draw_status()
+                elif event.key == pygame.K_s:
+                    self.swing_enabled = not self.swing_enabled
+                    state = "ON" if self.swing_enabled else "OFF"
+                    print(f"Swing {state}")
+                    self.draw_status()
 
     def play_pattern(self, pattern):
         """Play pattern once."""
@@ -86,10 +92,13 @@ class DrumMachine:
             for drum, play in step.items():
                 if play:
                     self.samples[drum].play()
-            if i % 2 == 0:
-                delay = (self.beat_duration / 4) * (1 - self.swing)
+            if self.swing_enabled and self.swing > 0:
+                if i % 2 == 0:
+                    delay = (self.beat_duration / 4) * (1 - self.swing)
+                else:
+                    delay = (self.beat_duration / 4) * (1 + self.swing)
             else:
-                delay = (self.beat_duration / 4) * (1 + self.swing)
+                delay = self.beat_duration / 4
             time.sleep(delay)
             self.draw_status()
 
