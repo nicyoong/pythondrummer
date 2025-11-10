@@ -1,6 +1,7 @@
+import json
 import time
-import random
 import pygame
+import random
 
 pygame.mixer.init()
 
@@ -10,10 +11,13 @@ class DrumMachine:
         self.beat_duration = 60 / bpm
         self.samples = {}
 
-    def load_samples(self, kick_path, snare_path, hihat_path):
-        self.samples["kick"] = pygame.mixer.Sound(kick_path)
-        self.samples["snare"] = pygame.mixer.Sound(snare_path)
-        self.samples["hihat"] = pygame.mixer.Sound(hihat_path)
+    def load_samples(self, config_path):
+        with open(config_path, "r") as f:
+            config = json.load(f)
+        self.samples["kick"] = pygame.mixer.Sound(config["kick"])
+        self.samples["snare"] = pygame.mixer.Sound(config["snare"])
+        self.samples["hihat"] = pygame.mixer.Sound(config["hihat"])
+        self.samples["crash"] = pygame.mixer.Sound(config["crash"])
 
     def make_pattern(self):
         """Generate a 16-step random drum pattern."""
@@ -22,7 +26,8 @@ class DrumMachine:
             step = {
                 "kick": random.random() < 0.3,
                 "snare": (i % 8 == 4) or random.random() < 0.1,
-                "hihat": random.random() < 0.7
+                "hihat": random.random() < 0.7,
+                "crash": (i == 0) or (random.random() < 0.05)
             }
             pattern.append(step)
         return pattern
