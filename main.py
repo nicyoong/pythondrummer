@@ -1,6 +1,6 @@
 import argparse
 
-from drums import DrumMachine
+import drums
 
 
 def parse():
@@ -44,7 +44,7 @@ def parse():
 
 def main():
     args = parse()
-    dm = DrumMachine(
+    dm = drums.DrumMachine(
         bpm=args.bpm, 
         time_signature=args.time_signature, 
         swing=args.swing
