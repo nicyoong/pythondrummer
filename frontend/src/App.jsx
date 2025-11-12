@@ -48,6 +48,10 @@ export default function App() {
           {swing}
         </label>
         <br />
+        <label>
+          Volume:{" "} <input type="range" min="0" max="100" step="1" value={volume} onChange={(e) => setVolume(parseFloat(e.target.value))} />
+          {volume}
+      </label>
         <button onClick={newPattern} className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">🔁 New Pattern</button>
       </div>
       <DrumPad pattern={pattern} samples={config.samples} bpm={bpm} />
