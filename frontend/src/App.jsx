@@ -6,6 +6,7 @@ export default function App() {
   const [pattern, setPattern] = useState([]);
   const [bpm, setBpm] = useState(100);
   const [swing, setSwing] = useState(0);
+  const [volume, setVolume] = useState(1.0);
 
   useEffect(() => {
     fetch("http://localhost:8000/config")
@@ -54,7 +55,7 @@ export default function App() {
       </label>
         <button onClick={newPattern} className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">🔁 New Pattern</button>
       </div>
-      <DrumPad pattern={pattern} samples={config.samples} bpm={bpm} />
+      <DrumPad pattern={pattern} samples={config.samples} bpm={bpm} volume={volume} />
     </div>
   );
 }
