@@ -24,4 +24,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/config")
+def get_config():
+    return dm.get_config()
+
+@app.get("/pattern")
+def get_pattern():
+    return {"pattern": dm.make_pattern()}
+
+@app.post("/bpm/{bpm}")
+def set_bpm(bpm: int):
+    dm.bpm = bpm
+    return {"bpm": bpm}
+
+@app.post("/swing/{value}")
+def set_swing(value: float):
+    dm.swing = value
+    return {"swing": value}
+
 
