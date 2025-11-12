@@ -26,6 +26,11 @@ class DrumMachine:
                 "hihat": random.random() < 0.7,
                 "crash": (i == 0),
             }
+            if sum(step.values()) > 3:
+                candidates = [k for k in step if k != "kick" and step[k]]
+                if candidates:
+                    mute = random.choice(candidates)
+                    step[mute] = False
             pattern.append(step)
         return pattern
 
