@@ -42,4 +42,14 @@ def set_swing(value: float):
     dm.swing = value
     return {"swing": value}
 
-
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    await websocket.send_text("Connected to Drum Machine WebSocket")
+    while True:
+        try:
+            data = await websocket.receive_text()
+            if data == "pattern":
+                await websocket.send_json({"pattern": dm.make_pattern()})
+        except Exception:
+            break
