@@ -4,8 +4,9 @@ export default function DrumPad({ pattern, samples, bpm }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const playSample = (url) => {
+  const playSample = (url, volume = 1.0) => {
     const audio = new Audio(url);
+    audio.volume = volume;
     audio.currentTime = 0;
     audio.play().catch(err => console.error("Playback failed:", err));
     };
@@ -17,7 +18,7 @@ export default function DrumPad({ pattern, samples, bpm }) {
     const interval = setInterval(() => {
       const step = pattern[currentStep];
       Object.keys(step).forEach(drum => {
-        if (step[drum]) playSample(samples[drum]);
+        if (step[drum]) playSample(samples[drum], volume);
       });
       setCurrentStep((s) => (s + 1) % pattern.length);
     }, stepTime);
