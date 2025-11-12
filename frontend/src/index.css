@@ -88,6 +88,13 @@ input[type="range"] {
   box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
 }
 
+.drum-pad h3 {
+  color: #00e0ff;
+  text-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
+  letter-spacing: 1px;
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
 p {
   color: #ccc;
 }
