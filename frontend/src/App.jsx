@@ -6,7 +6,7 @@ export default function App() {
   const [pattern, setPattern] = useState([]);
   const [bpm, setBpm] = useState(100);
   const [swing, setSwing] = useState(0);
-  const [volume, setVolume] = useState(1.0);
+  const [volume, setVolume] = useState(100);
 
   useEffect(() => {
     fetch("http://localhost:8000/config")

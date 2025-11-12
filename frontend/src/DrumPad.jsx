@@ -4,9 +4,9 @@ export default function DrumPad({ pattern, samples, bpm, volume }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const playSample = (url, volume = 1.0) => {
+  const playSample = (url, volume = 100) => {
     const audio = new Audio(url);
-    audio.volume = volume;
+    audio.volume = volume / 100;
     audio.currentTime = 0;
     audio.play().catch(err => console.error("Playback failed:", err));
     };
