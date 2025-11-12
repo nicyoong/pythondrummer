@@ -7,8 +7,8 @@ export default function DrumPad({ pattern, samples, bpm }) {
   const playSample = (url) => {
     const audio = new Audio(url);
     audio.currentTime = 0;
-    audio.play();
-  };
+    audio.play().catch(err => console.error("Playback failed:", err));
+    };
 
   useEffect(() => {
     if (!isPlaying || !pattern.length) return;
