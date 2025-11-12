@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function DrumPad({ pattern, samples, bpm }) {
+export default function DrumPad({ pattern, samples, bpm, volume }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
