@@ -61,6 +61,20 @@ button:hover {
   margin-bottom: 2rem;
 }
 
+label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #00e0ff; /* bright cyan */
+  text-shadow: 0 0 6px rgba(0, 224, 255, 0.8);
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+label:hover {
+  color: #00ffff;
+  text-shadow: 0 0 12px rgba(0, 255, 255, 1);
+}
+
 input[type="range"] {
   width: 200px;
   accent-color: #00d5ff;
