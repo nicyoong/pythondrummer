@@ -1,0 +1,6 @@
+{
+  "kick": "samples/kick.wav",
+  "snare": "samples/snare.wav",
+  "hihat": "samples/hihat.wav",
+  "crash": "samples/crash.wav"
+}
